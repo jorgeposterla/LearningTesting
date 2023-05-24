@@ -16,7 +16,7 @@ public class AutomationBase
     [OneTimeSetUp]
     public void ExtentStart()
     {
-        string reportPath = @"C:\Users\Jorge\source\repos\OpenBootcamp\TestProject2\TestProject2\test\Reports";
+        string reportPath = @"C:\Users\Jorge\source\repos\Selenium\LearningTesting\LearningTesting\test\Reports";
         ExtentHtmlReporter logger = new ExtentHtmlReporter (reportPath);
         extent.AttachReporter(logger);
     }

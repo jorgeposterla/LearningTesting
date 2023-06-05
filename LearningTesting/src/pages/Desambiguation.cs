@@ -52,4 +52,19 @@ public class Desambiguation : AutomationBase
         }
         return new Members(myDriver);
     }
+    
+    public Reviews TransitionToReviews()
+    {
+        try
+        {
+            while (pageTitle.Displayed == true)
+            {
+
+            }
+        }
+        catch
+        {
+        }
+        return new Reviews(myDriver);
+    }
 }

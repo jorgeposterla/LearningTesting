@@ -1,5 +1,6 @@
 using LearningTesting.src.framework.automation;
 using LearningTesting.src.pages;
+using LearningTesting.src.pages.locators;
 
 namespace LearningTesting.test.UI;
 
@@ -17,7 +18,7 @@ public class BandUITest : AutomationBase
         string expectedPageTitle = "Search results for \"Metallica\"";
 
         // test steps
-        test.Log(Status.Info, "Step 1: Search for "+entityName);
+        test.Log(Status.Info, "Step 1: Search for " + entityName);
         var desambiguation = header.Search(entityType, entityName);
         test.Log(Status.Info, "Step 2: Get the page title");
         string dTitle = desambiguation.GetPageTitle();
@@ -37,7 +38,7 @@ public class BandUITest : AutomationBase
         string expectedPageTitle = "Metallica";
 
         // test steps
-        test.Log(Status.Info, "Step 1: Search for "+entityName);
+        test.Log(Status.Info, "Step 1: Search for " + entityName);
         var desambiguation = header.Search(entityType, entityName);
         var profile = desambiguation.TransitionToProfile(title);
         test.Log(Status.Info, "Step 2: Get the page title");
@@ -58,7 +59,7 @@ public class BandUITest : AutomationBase
         string expectedEntityStatus = "Active";
 
         // test steps
-        test.Log(Status.Info, "Step 1: Search for "+entityName);
+        test.Log(Status.Info, "Step 1: Search for " + entityName);
         var desambiguation = header.Search(entityType, entityName);
         var profile = desambiguation.TransitionToProfile(title);
         test.Log(Status.Info, "Step 2: Get the band status");
@@ -98,10 +99,30 @@ public class BandUITest : AutomationBase
 
         // Test steps
         test.Log(Status.Info, "Step 1: Get the name of the last record");
-        //string lastRecordName = Records.GetPenultimateRecordName().GetAwaiter().GetResult();
+        //string penultimateRecordName = Records.GetPenultimateRecordName().GetAwaiter().GetResult();
         string lastRecordName = Records.GetLastRecordName().GetAwaiter().GetResult();
         test.Log(Status.Info, "Assert: Compare expected result with obtained one");
-        //Assert.That(lastRecordName, Is.EqualTo(expectedRecordName), "Validate the last record name");
+        //Assert.That(penultimateRecordName, Is.EqualTo(expectedRecordName), "Validate the penultimate record name");
         Assert.That(lastRecordName, Is.EqualTo(expectedRecordName), "Validate the last record name");
     }
+
+    [Test]
+    [Category("UI")]
+    [Author("Jorge Posterla")]
+    public void GetAverageReviews()
+    {
+        // Test variables
+        string entityType = "band_name";
+        string entityName = "Rata_Blanca";
+        double expectedAverageRating = 73.76;
+
+        // Test steps
+        test.Log(Status.Info, "Step 1: Search for " + entityName);
+        var desambiguation = header.Search(entityType, entityName);
+        var reviews = desambiguation.TransitionToReviews();
+        test.Log(Status.Info, "Step 2: Get the average rating");
+        double averageRating = reviews.CalculateAverageRating();
+        Assert.That(averageRating, Is.EqualTo(expectedAverageRating), "Validate the average rating");
+    }
+
 }
